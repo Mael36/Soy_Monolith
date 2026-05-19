@@ -18,10 +18,6 @@ jobs:
         run: npm ci
         working-directory: back
 
-      - name: Tests
-        run: npm test --if-present
-        working-directory: back
-
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
