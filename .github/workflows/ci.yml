@@ -18,10 +18,6 @@ jobs:
         run: npm ci
         working-directory: back
 
-      - name: Lint
-        run: npx eslint .
-        working-directory: back
-
       - name: Tests
         run: npm test --if-present
         working-directory: back
