@@ -146,13 +146,21 @@ app.use( require( "./routes/studentStatement" ) );
 
 
 // ---------- Default route / Error 404 ----------
-
-app.use( function( req, res ) {
+app.use(function(req, res) {
   debug(`UNEXPECTED ROUTE: ${req.originalUrl}`);
   res.status(404).send(`Resource not found at ${req.originalUrl}`);
 });
 
+// ---------- Global error handler ----------
+app.use((err, req, res, next) => {
+  debug("ERROR:", err);
+
+  res.status(err.status || 500).json({
+    error: err.message || "Internal Server Error"
+  });
+});
+
 // ---------- Start server ----------
-app.listen( process.env.PORT || 5001,'0.0.0.0', function() {
-  console.log( "ShellOnYou main back listening on port " + ( process.env.PORT || 5001 ) );
-} );
+app.listen(process.env.PORT || 5001, '0.0.0.0', function() {
+  console.log("ShellOnYou main back listening on port " + (process.env.PORT || 5001));
+});
